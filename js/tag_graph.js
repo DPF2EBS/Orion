@@ -212,7 +212,7 @@
                 tag.data('related_node', el.el);
                 elements.push(tag);
             });
-            container.appendTo(this.container)
+            container.appendTo(this.container);
             var left = -container.find('.wr-nop-list').width() - 2;
             container.css({
                 'left':left

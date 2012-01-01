@@ -1,8 +1,8 @@
 var DataProvider = {
     config:{
         url:{
-            tag:"http://192.168.7.204:8080//windrunner/json/searchTags",
-            detail:'http://192.168.7.204:8080//windrunner/json/viewTagInfo'
+            tag:"http://data.dp/windrunner/json/searchTags",
+            detail:'http://data.dp/windrunner/json/viewTagInfo'
         },
         db:{
             dw57:'dw57',
@@ -18,9 +18,9 @@ var DataProvider = {
                 url:DataProvider.config.url.tag,
                 type:'post',
                 dataType:'json',
-                database:DataProvider.config.db.dw57,
                 data:{
                     url:DataProvider.getUrl(),
+                    database:DataProvider.config.db.dw57,
                     date:date,
                     dateRange:0
                 },
@@ -32,9 +32,9 @@ var DataProvider = {
                 url:DataProvider.config.url.detail,
                 type:'post',
                 dataType:'json',
-                database:DataProvider.config.db.dw57,
                 data:{
                     url:DataProvider.getUrl(),
+                    database:DataProvider.config.db.dw57,
                     date:date,
                     dateRange:range,
                     module:trackObj.module,
@@ -71,7 +71,7 @@ var trackAnalyze = {
     },
     getTrackObjFromClick:function (clickString) {
         var match,
-            reg = /hippo\.ext\(([^\)]+)\)\.mv\(['"]([^'"]+)['"],['"]([^'"]+)['"]\)/;
+            reg = /hippo\.ext\(([^\)]+)\)\.mv\(['"]([^'"]*)['"],['"]?([^'"]*)['"]?\)/;
 
         var res = {
             module:null,
@@ -84,9 +84,9 @@ var trackAnalyze = {
             var ext = match[1];
             try {
                 ext = (new Function('return ' + ext))();
-                res.module = match[3];
+                res.module = ext.module || match[3];
                 res.action = ext.action;
-                res.moduleIndex = ext.index;
+                res.moduleIndex = +ext.index;
                 res.content = ext.content;
             } catch (e) {
                 console.log(e)

@@ -96,10 +96,6 @@
 }
 
 /********************controller**********************/
-.controller {
-    margin: 0;
-    padding: 0;
-}
 
 .wr-main {
     padding: 20px;;
@@ -186,42 +182,6 @@ ul.selects li.active a, ul.switcher li.active a {
 
 .wr-action .btn {
     margin-left: 95px;
-}
-
-.btn {
-    text-decoration: none;
-    color: white;
-    border-radius: 4px;
-    padding: 5px 10px;
-    font-size: 14px;
-    line-height: 18px;
-    border: 1px solid #ccc;
-    cursor: pointer;
-    text-align: center;
-    background-color: #e76f23;
-}
-
-.btn:hover {
-    color: #ffffff;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-}
-
-.btn:active {
-    color: rgba(255, 255, 255, 0.75);
-    box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.75) inset;
-}
-
-.right {
-    float: right;
-}
-
-ul.switcher li {
-    float: left;
-}
-
-1
-ul.switcher li a {
-
 }
 
 /**************点击菜单******************/
