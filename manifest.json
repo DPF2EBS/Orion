@@ -1,0 +1,31 @@
+{
+  "name": "Orion click mapper",
+  "version": "1.0.1",
+  "manifest_version": 2,
+  "description": "猎户座标签图工具.",
+  "permissions": [
+    "tabs", "http://*/*", "https://*/*"
+  ],
+  "icons": {
+    "48" : "img/logo.v1.gif",
+    "128" : "img/logo.v1.128.gif"
+  },
+  "browser_action": {
+  	"default_title": "执行分析",
+  	"default_icon": "img/logo.v1.gif",
+  	"default_popup": "html/popup.html"
+  },
+  "background": {
+  	"page": "html/background.html"
+  },
+  "content_scripts": [
+	  {
+	  	"matches": ["http://*.dianping.com/*"], 
+	  	"css": ["css/windrunner-common.css"],
+	  	"js": ["js/windrunner-sql.js", "js/windrunner-global.js", "js/jquery-1.7.2.min.js",  "js/svgchart.min.js", "js/halley-prototype.js", "js/windrunner-component.js"]	  	
+	  }
+  ],
+  "permissions": [
+  	"tabs", "http://*/*"
+  ]
+}

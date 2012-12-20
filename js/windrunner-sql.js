@@ -1,0 +1,3 @@
+var sql = {
+	getClickedItems: "select a.*,b.pv from (select module,module_index,sum(clk_cnt) clk_cnt,sum(ratio) ratio from dprpt.rpt_click_map where url = '{0}' and stat_time = '{1}' group by  module,module_index) as a join (select distinct module,module_index,pv from dprpt.rpt_click_map where url = '{0}' and stat_time = '{1}' group by  module,module_index,pv) as b on a.module = b.module and a.module_index = b.module_index"
+};
