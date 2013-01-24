@@ -1,0 +1,65 @@
+/*Popup 页面的css*/
+
+body {
+    width: 300px;
+    padding: 10px;
+}
+
+.header{
+    height: 50px;
+    border-bottom: solid 1px gray;
+    margin-bottom: 10px;
+}
+.header .logo ,.header .title{
+    float: left;
+}
+.header .logo{
+    height: 34px ; width:34px; background: url(img/logo.png) no-repeat 0 0 white;
+}
+.header .title{
+    margin:0 0 0 20px;
+}
+.header .title h2{
+    font-size: 10px;
+    font-weight: normal;
+}
+.header .title h1{
+    color: #228b22;
+    font-size: 20px;
+}
+
+.container .list {
+    font-size: 12px;
+}
+
+.container .list dl {
+    height: 30px;
+    line-height: 30px;
+    margin-bottom: 20px;
+}
+
+.container .list dt, .container .list dd {
+    float: left;
+}
+
+.container .list dt {
+    width: 70px;
+}
+
+.container .list .date_input {
+    width: 50px;
+}
+.container .function {
+    display: block;
+    float: left;
+    height: 24px;
+    line-height: 24px;
+    padding: 0 5px;
+    margin: 3px 10px 0 0;
+    text-decoration: none;
+    background-color: #ff6900;
+    color: #ffffff;
+}
+.container .function.disable{
+    background-color: #CCCCCC;
+}

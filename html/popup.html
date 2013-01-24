@@ -1,87 +1,94 @@
-<meta charset="utf-8"/>
+<!DOCTYPE html>
 <html>
-	<head>
-	<script type="text/javascript" src="../js/onPageLoad.js">
-		
-	</script>
-	<style type="text/css">
-	body {
-    	
-    }
-    
-    div {
-      cursor: pointer;
-      text-align: center;
-      padding: 1px 3px;
-      font-family: sans-serif;
-      font-size: 0.8em;
-      margin-top: 1px;
-      background: white;
-    }
-    .loading {
-    	background:white url('../img/loading.gif') no-repeat fixed center;
-    	width: 124px;
-      height: 124px;
-    }
-   .error {
-   		content: '错误';
-   }
-   .boot {
-   		color: gray;
-   		border-top: solid 1px whitesmoke;
-   		padding: 10px 0 10px 0;
-   		text-align: right;
-   		font-size: 10px;
-   }
-  	</style>
-	</head>
-	<body>
-		<div class="loading"></div>
-	<!-- 
-		<div class="wr-main">
-			<div class="wr-header">
-				<label>页面标签图</label>
-				<ul class="switcher right">
-					<li><a>开</a></li>
-					<li class="active"><a>关</a></li>
-				</ul>
-			</div>
-			<div class="wr-content">
-				<div class="ctl-grp">
-					<span class="ctl-lbl">选择日期</span>
-					<div class="ctls">
-						<ul class="selects">
-							<li class="active"><a>本日</a></li>
-							<li><a>本周</a></li>
-							<li><a>本月</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="ctl-grp">
-					<span class="ctl-lbl">查看类别</span>
-					<div class="ctls">
-						<ul class="selects">
-							<li class="active"><a>位置</a></li>
-							<li><a>内容</a></li>
-						</ul>
-					</div>
-				</div>
-				<div class="ctl-grp">
-					<span class="ctl-lbl">查看范围</span>
-					<div class="ctls">
-						<ul class="selects">
-							<li class="active"><a>全部</a></li>
-							<li><a>Top 50</a></li>
-							<li><a>Top 25</a></li>
-							<li><a>Top 5</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			
-			<div class="wr-action wr-content">
-				<p><a class="btn">查询</a></p>
-			</div>
-		</div> -->
-	</body>
+<head>
+    <meta charset="utf-8"/>
+    <link href="../css/reset.css" rel="stylesheet" type="text/css">
+    <link href="../css/popup.css" rel="stylesheet" type="text/css">
+
+
+</head>
+<body>
+<div class="header">
+    <div class="logo"></div>
+    <div class="title">
+        <h2>dianping</h2>
+
+        <h1>Orion Click Mapper</h1>
+    </div>
+</div>
+<div class="container">
+    <div class="list">
+        <dl>
+            <dt>选择日期</dt>
+            <dd>
+                <select id="month_select">
+                    <option value="1">Jan</option>
+                    <option value="2">Feb</option>
+                    <option value="3">Mar</option>
+                    <option value="4">Apr</option>
+                    <option value="5">May</option>
+                    <option value="6">Jun</option>
+                    <option value="7">July</option>
+                    <option value="8">Aug</option>
+                    <option value="9">Sep</option>
+                    <option value="10">Oct</option>
+                    <option value="11">Nov</option>
+                    <option value="12">Dec</option>
+                </select>
+                <select id="date_select">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                    <option>9</option>
+                    <option>10</option>
+                    <option>11</option>
+                    <option>12</option>
+                    <option>13</option>
+                    <option>14</option>
+                    <option>15</option>
+                    <option>16</option>
+                    <option>17</option>
+                    <option>18</option>
+                    <option>19</option>
+                    <option>20</option>
+                    <option>21</option>
+                    <option>22</option>
+                    <option>23</option>
+                    <option>24</option>
+                    <option>25</option>
+                    <option>26</option>
+                    <option>27</option>
+                    <option>28</option>
+                    <option>29</option>
+                    <option>30</option>
+                    <option>31</option>
+                </select>
+                <input id="year_select" type="text" class="date_input" placeholder="年"/>
+            </dd>
+        </dl>
+        <dl>
+            <dt>功能选择</dt>
+            <dd>
+                <label class="function" for="fn_trend"><input type="checkbox" class="J_fn" id="fn_trend" value="1" checked>点击趋势</label>
+                <label class="function" for="fn_const"><input type="checkbox" class="J_fn" id="fn_const" value="2" checked>点击组成</label>
+            </dd>
+        </dl>
+        <dl>
+            <dt>插件行为</dt>
+            <dd><label class="function" for="fn_analyze" title="勾选后，每次打开页面自动执行分析"><input type="checkbox" class="J_fn" id="fn_analyze" checked>始终执行分析</label></dd>
+        </dl>
+    </div>
+    <div class="submit">
+        <input type="button" value="执行分析" id="do_action">
+    </div>
+</div>
+<script type="text/javascript" src="../js/jquery-1.7.2.min.js"></script>
+<script type="text/javascript" src="../js/util.js"></script>
+<script type="text/javascript" src="../js/init_pop.js"></script>
+</body>
 </html>

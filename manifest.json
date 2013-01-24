@@ -11,7 +11,7 @@
     "128" : "img/logo.v1.128.gif"
   },
   "browser_action": {
-  	"default_title": "执行分析",
+  	"default_title": "猎户座标签图",
   	"default_icon": "img/logo.v1.gif",
   	"default_popup": "html/popup.html"
   },
@@ -22,7 +22,7 @@
 	  {
 	  	"matches": ["http://*.dianping.com/*"], 
 	  	"css": ["css/windrunner-common.css"],
-	  	"js": ["js/windrunner-sql.js", "js/windrunner-global.js", "js/jquery-1.7.2.min.js",  "js/svgchart.min.js", "js/halley-prototype.js", "js/windrunner-component.js"]	  	
+	  	"js": ["js/jquery-1.7.2.min.js","js/halley-prototype.js","js/tag_graph.js","js/handler.js"]
 	  }
   ],
   "permissions": [
