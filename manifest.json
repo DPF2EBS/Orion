@@ -1,31 +1,32 @@
 {
-  "name": "Orion click mapper",
-  "version": "1.0.1",
-  "manifest_version": 2,
-  "description": "猎户座标签图工具.",
-  "permissions": [
-    "tabs", "http://*/*", "https://*/*"
-  ],
-  "icons": {
-    "48" : "img/logo.v1.gif",
-    "128" : "img/logo.v1.128.gif"
-  },
-  "browser_action": {
-  	"default_title": "猎户座标签图",
-  	"default_icon": "img/logo.v1.gif",
-  	"default_popup": "html/popup.html"
-  },
-  "background": {
-  	"page": "html/background.html"
-  },
-  "content_scripts": [
-	  {
-	  	"matches": ["http://*.dianping.com/*"], 
-	  	"css": ["css/windrunner-common.css"],
-	  	"js": ["js/jquery-1.7.2.min.js","js/halley-prototype.js","js/tag_graph.js","js/handler.js"]
-	  }
-  ],
-  "permissions": [
-  	"tabs", "http://*/*"
-  ]
+    "name":"Orion click mapper",
+    "version":"1.0.2",
+    "manifest_version":2,
+    "description":"猎户座标签图工具.",
+    "update_url":"http://orion.fb.dp/update/updates.xml",
+    "permissions":[
+        "tabs", "http://*/*", "https://*/*"
+    ],
+    "icons":{
+        "48":"img/logo.v1.gif",
+        "128":"img/logo.v1.128.gif"
+    },
+    "browser_action":{
+        "default_title":"猎户座标签图",
+        "default_icon":"img/logo.v1.gif",
+        "default_popup":"html/popup.html"
+    },
+    "background":{
+        "page":"html/background.html"
+    },
+    "content_scripts":[
+        {
+            "matches":["http://*.dianping.com/*"],
+            "css":["css/windrunner-common.css"],
+            "js":["js/jquery-1.7.2.min.js", "js/halley-prototype.js", "js/tag_graph.js", "js/handler.js"]
+        }
+    ],
+    "permissions":[
+        "tabs", "http://*/*"
+    ]
 }
