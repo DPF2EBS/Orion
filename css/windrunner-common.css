@@ -1,8 +1,6 @@
 @CHARSET "UTF-8";
 /*****************tag标签******************/
-.wr-tag-container .wr-tag-item {
-    position: absolute;
-    z-index: 999;
+.wr-tag-container .wr-tag-item, .wr-nop-tag-item {
     color: white;
     font-size: 12px;
     padding: 1px 7px 1px 7px;
@@ -10,6 +8,11 @@
     box-shadow: 0 0 1px #cccccc;
     cursor: pointer;
     display: block;
+}
+
+.wr-tag-container .wr-tag-item {
+    position: absolute;
+    z-index: 999;
 }
 
 .wr-tag-container .wr-close-bg {
@@ -336,4 +339,49 @@ ul.wr-detail-info li span.wr-info-content {
 
 .wr-detail-box .wr-close:hover {
     color: #E67122;
+}
+
+/*无法定位的标签*/
+.wr-nop {
+    position: absolute;
+    left: 0;
+    top: 180px;
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 2px #ccc;
+    z-index: 10005;
+    background-color: #e6e6fa;
+}
+
+.wr-nop .wr-nop-tag {
+    position: absolute;
+    text-align: center;
+    width: 20px;
+    top:-1px;
+    right: -29px;
+    border: 1px solid #ccc;
+    border-left: none;
+    border-top-right-radius: 4px;
+    padding: 4px;
+    box-shadow: 2px 2px 2px #ccc;
+    background-color: #e6e6fa;
+    cursor: pointer;
+}
+.wr-nop .wr-nop-list{
+}
+.wr-nop .wr-nop-list dl ,.wr-nop .wr-nop-list dt,.wr-nop .wr-nop-list dd{
+    min-height: 30px;
+}
+.wr-nop .wr-nop-list dl:after{
+    content: ' ';
+    display: block;
+    clear: both;
+ }
+.wr-nop .wr-nop-list dt, .wr-nop .wr-nop-list dd {
+    float: left;
+}
+.wr-nop-list dd{
+    margin-left: 10px;
+    max-width: 150px;
+    min-width: 100px;
+    overflow:hidden;
 }

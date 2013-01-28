@@ -1,5 +1,5 @@
 var detailUI = {
-    renderBox:function (date, ctr, click, pv) {
+    renderBox:function (date) {
         return $('<div class="wr-detail-box">\
             <div class="wr-header">\
             <label>' + util.textDate(date) + '该位置详情</label>\
@@ -9,7 +9,12 @@ var detailUI = {
             <span class="arrow-head-top outer"></span>\
             <span class="arrow-head-top inner"></span>\
             <div class="wr-detail-panels">\
-                <ul class="wr-detail-info">\
+            </div>\
+        </div>\
+        </div>')
+    },
+    renderCTR:function (ctr, click, pv) {
+        return $('<ul class="wr-detail-info">\
                     <li>\
                         <span class="wr-info-title">CTR</span>\
                         <span class="wr-info-content">' + ctr + '</span>\
@@ -22,10 +27,7 @@ var detailUI = {
                         <span class="wr-info-title">访问量</span>\
                         <span class="wr-info-content">' + pv + '</span>\
                     </li>\
-                </ul>\
-            </div>\
-        </div>\
-        </div>')
+                </ul>');
     },
     renderConsist:function (data) {
         var container = $('<div class="wr-detail-consist">\
@@ -41,8 +43,11 @@ var detailUI = {
         </table>\
         </div>');
         data.forEach(function (d) {
-            $('<tr><td><a href="' + d.content + '"></a></td><td>' + d.clk_count + '</td></tr>').appendTo(container.find('tbody'));
+            $('<tr><td><a href="' + d.content + '">'+ d.content+'</a></td><td>' + d.clk_cnt + '</td></tr>').appendTo(container.find('tbody'));
         });
         return container;
+    },
+    renderChart:function(){
+        return $('<div class="wr-detail-chart"></div>');
     }
 }

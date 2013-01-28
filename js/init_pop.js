@@ -30,13 +30,13 @@
     $('#do_action').click(function () {
         var date = domYear.val() + "-" + util.fix(domMonth.val(), 2) + "-" + util.fix(domDate.val(), 2);
         var selected = [0];
-        $('.j_fn').each(function (i, c) {
-            if (c.checked) {
-                selected.push(+c.value);
+        $('.J_fn').each(function (i, c) {
+            if (c.checked && c.value) {
+                selected.push(c.value);
             }
         });
-        localStorage.setItem('date',date);
-        localStorage.setItem('selected',selected);
+        localStorage.setItem('date', date);
+        localStorage.setItem('selected', selected);
         chrome.tabs.getSelected(null, function (tab) {
             chrome.tabs.sendMessage(tab.id, {
                 action:'fetch',

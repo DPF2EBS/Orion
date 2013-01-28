@@ -18,7 +18,7 @@
             return d1.getFullYear() === d2.getFullYear() && d1.getMonth() === d2.getMonth() && d1.getDate() === d2.getDate();
         }
 
-        var d = Date.parse(dateString);
+        var d = new Date(dateString);
         if (same(d, today)) {
             return '今天'
         } else if (same(d, yesterday)) {

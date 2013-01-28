@@ -28,6 +28,7 @@
             var option = this.options,
                 self = this,
                 elements = [],
+                noPositionElements = [],
                 container = $('<div class="wr-tag-container"></div>').appendTo(document.body);
             $('<div class="wr-close-bg"></div>').appendTo(container)
             $('<a class="wr-close" href="javascript:void(0);" title="点击关闭标签图">×</a>').appendTo(container).click(function () {
@@ -38,24 +39,36 @@
                     res = option.dataMatcher(e)
 
                 if (res !== false) {
-                    var tag = $('<span class="wr-tag-item"></span>').css({
-                        left:e.offset().left - 10,
-                        top:e.offset().top - 20
-                    }).text(option.percent ? (res + "%") : res).appendTo(container)
-                    tag.data('tag_value', res);
-                    tag.data('related_node', e);
-                    elements.push(tag);
+                    var offset = e.offset();
+                    if (offset.left <= 0 || offset.top <= 0) {
+                        noPositionElements.push({
+                            res:res,
+                            el:e
+                        })
+                    } else {
+                        var tag = $('<span class="wr-tag-item"></span>').css({
+                            left:e.offset().left - 10,
+                            top:e.offset().top - 20
+                        }).text(option.percent ? (res + "%") : res).appendTo(container)
+                        tag.data('tag_value', res);
+                        tag.data('related_node', e);
+                        elements.push(tag);
+                    }
                 }
             });
             this.container = container;
 
             this.elements = elements;
 
+            this.layoutNoPositionElements(noPositionElements);
+
             this.colorize();
             this.hover();
         },
         destroy:function () {
-            this.container.remove()
+            this.container.remove();
+            this.elements = [];
+
         },
         colorize:function () {
             if (!this.elements.length) {
@@ -69,7 +82,7 @@
             var max = clone[clone.length - 1].data('tag_value');
             this.elements.forEach(function (el) {
                 var percent = el.data('tag_value') / max,
-                    rgb = self.hsvToRgb(0,20+ percent * 200, percent * 100 + 50);
+                    rgb = self.hsvToRgb(0, 20 + percent * 200, percent * 100 + 50);
                 el.css('background-color', 'rgb(' + rgb.join(',') + ')');
             });
 //            this.elements.forEach(function (el) {
@@ -171,10 +184,47 @@
             this.elements.forEach(function (el) {
                 el[type](fn);
             });
+        },
+        resize:function () {
+            this.elements.forEach(function (e) {
+                var link = e.data('related_node');
+                e.css({
+                    left:link.offset().left - 10,
+                    top:link.offset().top - 20
+                })
+            });
+        },
+        layoutNoPositionElements:function (els) {
+            if (!els.length) {
+                return;
+            }
+            var container = $('<div class="wr-nop">\
+                    <div class="wr-nop-tag">无法定位的标签</div>\
+                    <div class="wr-nop-list"></div>\
+                </div>'),
+                option = this.options,
+                elements = this.elements;
+            els.forEach(function (el) {
+                var list = $('<dl><dt></dt><dd></dd></dl>').appendTo(container.find('.wr-nop-list'));
+                var tag = $('<span class="wr-nop-tag-item"></span>').text(option.percent ? (el.res + "%") : el.res).appendTo(list.find('dt'));
+                el.el.clone().appendTo(list.find('dd'));
+                tag.data('tag_value', el.res);
+                tag.data('related_node', el.el);
+                elements.push(tag);
+            });
+            container.appendTo(this.container)
+            var left = -container.find('.wr-nop-list').width() - 2;
+            container.css({
+                'left':left
+            });
+            container.find('.wr-nop-tag').toggle(function () {
+                container.stop().animate({left:0}, 500)
+            }, function () {
+                container.stop().animate({left:left}, 500)
+            });
         }
 
     }
 
     this.TagGraph = TagGraph;
-})
-    ();
+})();

@@ -1,6 +1,6 @@
 {
     "name":"Orion click mapper",
-    "version":"1.0.2",
+    "version":"1.0.6",
     "manifest_version":2,
     "description":"猎户座标签图工具.",
     "update_url":"http://orion.fb.dp/update/updates.xml",
@@ -23,7 +23,7 @@
         {
             "matches":["http://*.dianping.com/*"],
             "css":["css/windrunner-common.css"],
-            "js":["js/jquery-1.7.2.min.js", "js/halley-prototype.js", "js/tag_graph.js", "js/handler.js"]
+            "js":["js/jquery-1.7.2.min.js","js/svgchart.1.1.js", "js/halley-prototype.js","js/util.js", "js/tag_graph.js","js/detail.js", "js/handler.js"]
         }
     ],
     "permissions":[

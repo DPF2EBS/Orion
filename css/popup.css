@@ -52,14 +52,32 @@ body {
 .container .function {
     display: block;
     float: left;
-    height: 24px;
-    line-height: 24px;
-    padding: 0 5px;
+    height: 25px;
+    line-height: 25px;
+    padding: 0 10px;
     margin: 3px 10px 0 0;
     text-decoration: none;
     background-color: #ff6900;
     color: #ffffff;
 }
+.container .function input[type=checkbox]{
+    vertical-align: middle;
+    margin:0  5px 0 0;
+}
 .container .function.disable{
     background-color: #CCCCCC;
+}
+
+.container .submit{
+    display: inline-block;
+    background-color: #0088cc;
+    text-shadow: 0 1px 0 rgba(0,0,0,.15);
+    text-decoration: none;
+    color: #ffffff;
+    padding:6px 8px;
+    border-radius: 4px;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(64,150,238,1)), color-stop(100%,rgba(64,150,238,1)));
+}
+.container .submit:hover{
+    background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(109,179,242,1)), color-stop(50%,rgba(84,163,238,1)), color-stop(51%,rgba(54,144,240,1)), color-stop(100%,rgba(30,105,222,1)));
 }
