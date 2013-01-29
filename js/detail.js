@@ -9,6 +9,7 @@ var detailUI = {
             <span class="arrow-head-top outer"></span>\
             <span class="arrow-head-top inner"></span>\
             <div class="wr-detail-panels">\
+                <div class="wr-panel-layer1"></div>\
             </div>\
         </div>\
         </div>')
@@ -17,7 +18,7 @@ var detailUI = {
         return $('<ul class="wr-detail-info">\
                     <li>\
                         <span class="wr-info-title">CTR</span>\
-                        <span class="wr-info-content">' + ctr + '</span>\
+                        <span class="wr-info-content">' + ctr + '%</span>\
                     </li>\
                     <li>\
                         <span class="wr-info-title">点击数</span>\
@@ -34,7 +35,7 @@ var detailUI = {
             <table>\
             <thead>\
                 <tr>\
-                    <th width="200">去向</th>\
+                    <th width="200">去向TOP5</th>\
                     <th width="100">点击量</th>\
                     <th width="100">占比</th>\
                 </tr>\

@@ -2225,8 +2225,8 @@ Venus.config={
             , totalHeight
             , itemSet                           // set of items
             , textSet                           // set of texts
-            , margin = 10                       // margin to svg boundary
-            , padding = 10
+            , margin = 0                       // margin to svg boundary
+            , padding = 0
             , names
             , colors
             , isVertical, _x,_y ,

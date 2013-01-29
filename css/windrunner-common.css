@@ -243,16 +243,23 @@ ul.switcher li a {
 .arrow-head-top.inner {
     border-color: transparent transparent #FFFFFF transparent;
     top: -59px;
-    left: 0;
 }
 
 .arrow-head-top.outer {
     border-color: transparent transparent #DEDEDE transparent;
     top: -60px;
+}
+.arrow-right .arrow-head-top{
+    right: 0;
+}
+.arrow-left .arrow-head-top{
     left: 0;
 }
 
 .wr-detail-panels {
+}
+.wr-detail-panels .wr-panel-layer1{
+    min-height: 150px;
 }
 
 .wr-detail-info, .wr-detail-consist {
@@ -264,16 +271,19 @@ ul.switcher li a {
 }
 
 .wr-detail-chart {
-    height: 200px;
-    margin-bottom: 10px;
+    height: 150px;
+    margin-top: 15px;
 }
 
 .wr-detail-consist table, .wr-detail-consist table td, .wr-detail-consist table th {
     border-collapse: collapse;
-    border: solid 1px #E67122;
     text-align: center;
     font-size: 12px;
 }
+.wr-detail-consist table th{
+    font-weight: bold;
+}
+
 
 .wr-detail-consist table tr a {
     color: #0088cc;
@@ -283,6 +293,9 @@ ul.switcher li a {
 .wr-detail-consist table tr {
     height: 28px;
     line-height: 24px;
+}
+.wr-detail-consist tbody tr:nth-child(odd){
+    background-color: #f8f8ff;
 }
 
 .wr-detail-box label {
@@ -294,8 +307,12 @@ ul.switcher li a {
     position: relative;
 }
 
+ul.wr-detail-info{
+    padding-top :20px;
+}
 ul.wr-detail-info li {
-    padding-bottom: 8px;
+    padding-bottom: 15px;
+
 }
 
 ul.wr-detail-info li:after {
@@ -386,4 +403,10 @@ ul.wr-detail-info li span.wr-info-content {
     max-width: 150px;
     min-width: 100px;
     overflow:hidden;
+}
+
+.wr-clearfix:after{
+    content: ' ';
+    display: block;
+    clear: both;
 }

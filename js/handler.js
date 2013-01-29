@@ -40,7 +40,7 @@ var DataProvider = {
                     module:trackObj.module,
                     moduleIndex:trackObj.moduleIndex,
                     panelType:types.join(','),
-                    contentLimit:10
+                    contentLimit:5
                 },
                 success:cb
             })
@@ -184,13 +184,25 @@ var handlers = {
 
 
                 var panelContainer = detailBox.find('.wr-detail-panels'),
-                    panel0, panel1, panel2;
-                if (panel1 = res.msg.panel1) {
+                    panel0, panel1, panel2,
+                    map = {
+                        'ratio':"CTR",
+                        'pv':"访问量",
+                        'clk_cnt':"点击数"
+                    };
+
+                if ((panel0 = res.msg.panel0 ) && selected.indexOf(0) !== -1) {
+                    detailUI.renderCTR(util.parseCTR(panel0.ratio), panel0.clk_cnt, panel0.pv).appendTo(panelContainer.find('.wr-panel-layer1'));
+                }
+                if ((panel2 = res.msg.panel2 ) && selected.indexOf(2) !== -1) {
+                    detailUI.renderConsist(panel2, panel0.clk_cnt).appendTo(panelContainer.find('.wr-panel-layer1'));
+                }
+                if ((panel1 = res.msg.panel1 ) && selected.indexOf(1) !== -1) {
                     var chartContainer = detailUI.renderChart().appendTo(panelContainer);
                     var data = [];
                     for (var key in panel1) {
                         var obj = {};
-                        obj.name = key;
+                        obj.name = map[key] || key;
                         obj.data = {};
                         data.push(obj);
                         panel1[key].forEach(function (k) {
@@ -207,16 +219,19 @@ var handlers = {
                                 type:'datetime'
                             },
                             y:{
-                                enable:false
+                                enable:false,
+                                percent:.7
                             },
                             y1:{
                                 opposite:true,
-                                enable:false
+                                enable:false,
+                                percent:.7
 
                             },
                             y2:{
                                 enable:false,
-                                opposite:true
+                                opposite:true,
+                                percent:.7
                             }
                         },
                         axisUsage:{
@@ -224,26 +239,30 @@ var handlers = {
                             1:['x', 'y1'],
                             2:['x', 'y2']
                         },
-                        legend:{},
+                        legend:{
+                            position:[20, 10],
+                            direction:'horizontal',
+                            'borderWidth':0
+                        },
                         tooltip:function (obj) {
                             return obj.x.split(' ')[0] + "\n" + obj.label + ": " + obj.y
                         }
                     })
                 }
-                if (panel0 = res.msg.panel0) {
-                    detailUI.renderCTR(util.parseCTR(panel0.ratio), panel0.clk_cnt, panel0.pv).appendTo(panelContainer);
-                }
-                if (panel2 = res.msg.panel2) {
-                    detailUI.renderConsist(panel2, panel0.clk_cnt).appendTo(panelContainer);
-                }
 
                 //定位
                 var offset = tag.offset();
-                detailBox.css({
-                    'left':offset.left,
-                    top:offset.top + 25
-                })
-
+                if (offset.left < $(window).width() / 2) {
+                    detailBox.css({
+                        'left':offset.left,
+                        top:offset.top + 25
+                    }).addClass('arrow-left')
+                } else {
+                    detailBox.css({
+                        left:offset.left-550,
+                        top:offset.top+25
+                    }).addClass('arrow-right')
+                }
 
                 commUI.hideLoading();
             } else {
@@ -270,11 +289,18 @@ chrome.extension.onMessage.addListener(function (request, sender, sendResponse) 
 
 //判断是否需要自动执行
 chrome.extension.sendMessage({
-    'get_localStorage':['fn_analyze', 'selected']
+    'get_localStorage':['fn_analyze', 'fn_trend', 'fn_const']
 }, function (res) {
-    if (res[0] === "true" && res[1]) {
+    if (res[0] === "true") {
         var yesterday = util.getYesterday();
-        handlers.fetch(yesterday.getFullYear() + "-" + util.fix(yesterday.getMonth() + 1, 2) + "-" + util.fix(yesterday.getDate(), 2), res[1].split(','));
+        var selected = [0];
+        if (res[1] === "true") {
+            selected.push(1);
+        }
+        if (res[2] === "true") {
+            selected.push(2);
+        }
+        handlers.fetch(yesterday.getFullYear() + "-" + util.fix(yesterday.getMonth() + 1, 2) + "-" + util.fix(yesterday.getDate(), 2), selected);
     }
 });
 

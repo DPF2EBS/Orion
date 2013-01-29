@@ -11,6 +11,14 @@
     domYear.val(yesterday.getFullYear());
 
     //功能选择
+    if (!localStorage.getItem('init')) {
+        localStorage.setItem('fn_trend', true);
+        localStorage.setItem('fn_const', true);
+        localStorage.setItem('fn_analyze', true);
+        localStorage.setItem('init', true);
+    }
+
+
     $('.J_fn').each(function (i, c) {
         var $c = $(c);
         if (localStorage.getItem($c.attr('id')) === "true") {
@@ -32,7 +40,7 @@
         var selected = [0];
         $('.J_fn').each(function (i, c) {
             if (c.checked && c.value) {
-                selected.push(c.value);
+                selected.push(+c.value);
             }
         });
         localStorage.setItem('date', date);
