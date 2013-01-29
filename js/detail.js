@@ -29,7 +29,7 @@ var detailUI = {
                     </li>\
                 </ul>');
     },
-    renderConsist:function (data) {
+    renderConsist:function (data,sum) {
         var container = $('<div class="wr-detail-consist">\
             <table>\
             <thead>\
@@ -43,7 +43,7 @@ var detailUI = {
         </table>\
         </div>');
         data.forEach(function (d) {
-            $('<tr><td><a href="' + d.content + '">'+ d.content+'</a></td><td>' + d.clk_cnt + '</td></tr>').appendTo(container.find('tbody'));
+            $('<tr><td><a href="' + d.content_url + '">'+ d.content+'</a></td><td>' + d.clk_cnt + '</td><td>'+util.parseCTR(d.clk_cnt/sum)+'%</td></tr>').appendTo(container.find('tbody'));
         });
         return container;
     },

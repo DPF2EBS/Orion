@@ -1,6 +1,6 @@
 (function () {
     //初始化日期
-    var yesterday = new Date(new Date().setDate(new Date().getDate() - 1));
+    var yesterday = util.getYesterday();
     var domYear = $('#year_select'),
         domMonth = $('#month_select'),
         domDate = $('#date_select');

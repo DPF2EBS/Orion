@@ -1,8 +1,8 @@
 var DataProvider = {
     config:{
         url:{
-            tag:"http://192.168.26.10:8080/windrunner/json/searchTags",
-            detail:'http://192.168.26.10:8080/windrunner/json/viewTagInfo'
+            tag:"http://192.168.7.204:8080//windrunner/json/searchTags",
+            detail:'http://192.168.7.204:8080//windrunner/json/viewTagInfo'
         },
         db:{
             dw57:'dw57',
@@ -39,7 +39,8 @@ var DataProvider = {
                     dateRange:range,
                     module:trackObj.module,
                     moduleIndex:trackObj.moduleIndex,
-                    panelType:types.join(',')
+                    panelType:types.join(','),
+                    contentLimit:10
                 },
                 success:cb
             })
@@ -67,6 +68,33 @@ var trackAnalyze = {
             moduleIndex:getValueFromArr(trackValue.match(this.regExp.moduleIndexReg)),
             content:getValueFromArr(trackValue.match(this.regExp.contentReg))
         };
+    },
+    getTrackObjFromClick:function (clickString) {
+        var match,
+            reg = /hippo\.ext\(([^\)]+)\)\.mv\(['"]([^'"]+)['"],['"]([^'"]+)['"]\)/;
+
+        var res = {
+            module:null,
+            action:null,
+            moduleIndex:null,
+            content:null
+        };
+        match = clickString.match(reg);
+        if (match) {
+            var ext = match[1];
+            try {
+                ext = (new Function('return ' + ext))();
+                res.module = match[3];
+                res.action = ext.action;
+                res.moduleIndex = ext.index;
+                res.content = ext.content;
+            } catch (e) {
+                console.log(e)
+            }
+
+        }
+        return res;
+
     }
 }
 
@@ -101,8 +129,18 @@ var handlers = {
             if (res.code === 200) {
                 tagGraph = new TagGraph({
                     dataMatcher:function (el) {
-                        var trackValue = el.attr('track');
-                        var trackObj = trackAnalyze.getTrackObj(trackValue);
+                        var trackValue = el.attr('track'),
+                            trackObj;
+                        if (trackValue) {
+                            trackObj = trackAnalyze.getTrackObj(trackValue);
+                        } else {
+                            var clickEvent = el.get(0).onclick;
+                            if (clickEvent) {
+                                trackObj = trackAnalyze.getTrackObjFromClick(clickEvent.toString());
+                            } else {
+                                return false;
+                            }
+                        }
                         for (var i = 0; i < res.msg.length; i++) {
                             var val = res.msg[i];
                             if (val.module == trackObj.module && val.module_index == trackObj.moduleIndex) {
@@ -111,7 +149,7 @@ var handlers = {
                                     moduleIndex:val.module_index,
                                     ratio:val.ratio
                                 });
-                                return (Math.round(parseFloat(val.ratio) * 10000) / 100);
+                                return util.parseCTR(val.ratio);
                             }
                         }
                         return false;
@@ -120,7 +158,6 @@ var handlers = {
                 tagGraph.display();
                 commUI.hideLoading();
                 tagGraph.on('click', function () {
-                    commUI.showLoading('正在加载...');
                     handlers.panel(date, $(this), selected);
 
                 });
@@ -130,10 +167,14 @@ var handlers = {
         });
     },
     panel:function (date, tag, selected) {
-        commUI.showLoading('正在加载..');
+        if (this.onPanel) {
+            return;
+        }
+        this.onPanel = true;
+        commUI.showLoading('正在加载...');
         chart && chart.destroy();
         detailBox && detailBox.remove();
-        DataProvider.action.panel(date, 14, tag.data('related_node').data('trackObj'), selected, function (res) {
+        DataProvider.action.panel(date, 0, tag.data('related_node').data('trackObj'), selected, function (res) {
             if (res.code === 200) {
                 detailBox = detailUI.renderBox(date).appendTo(document.body);
                 detailBox.find('.wr-close').click(function () {
@@ -153,7 +194,7 @@ var handlers = {
                         obj.data = {};
                         data.push(obj);
                         panel1[key].forEach(function (k) {
-                            obj.data[k.date] = key === "ratio" ? (Math.round(parseFloat(k.value) * 10000) / 100) : k.value;
+                            obj.data[k.date] = key === "ratio" ? util.parseCTR(k.value) : k.value;
                         });
                     }
                     chart = new Venus.SvgChart(chartContainer.get(0), data, {
@@ -165,7 +206,9 @@ var handlers = {
                             x:{
                                 type:'datetime'
                             },
-                            y:{},
+                            y:{
+                                enable:false
+                            },
                             y1:{
                                 opposite:true,
                                 enable:false
@@ -183,15 +226,15 @@ var handlers = {
                         },
                         legend:{},
                         tooltip:function (obj) {
-                            return obj.x.split(' ')[0] + "\n" + obj.y
+                            return obj.x.split(' ')[0] + "\n" + obj.label + ": " + obj.y
                         }
                     })
                 }
                 if (panel0 = res.msg.panel0) {
-                    detailUI.renderCTR(panel0.ratio, panel0.clk_cnt, panel0.pv).appendTo(panelContainer);
+                    detailUI.renderCTR(util.parseCTR(panel0.ratio), panel0.clk_cnt, panel0.pv).appendTo(panelContainer);
                 }
                 if (panel2 = res.msg.panel2) {
-                    detailUI.renderConsist(panel2).appendTo(panelContainer);
+                    detailUI.renderConsist(panel2, panel0.clk_cnt).appendTo(panelContainer);
                 }
 
                 //定位
@@ -206,8 +249,11 @@ var handlers = {
             } else {
                 commUI.showLoading(res.msg);
             }
+
+            handlers.onPanel = false;
         });
-    }
+    },
+    onPanel:false
 }
 
 
@@ -224,10 +270,11 @@ chrome.extension.onMessage.addListener(function (request, sender, sendResponse) 
 
 //判断是否需要自动执行
 chrome.extension.sendMessage({
-    'get_localStorage':['fn_analyze', 'date', 'selected']
+    'get_localStorage':['fn_analyze', 'selected']
 }, function (res) {
-    if (res[0] === "true" && res[1] && res[2]) {
-        handlers.fetch(res[1], res[2].split(','));
+    if (res[0] === "true" && res[1]) {
+        var yesterday = util.getYesterday();
+        handlers.fetch(yesterday.getFullYear() + "-" + util.fix(yesterday.getMonth() + 1, 2) + "-" + util.fix(yesterday.getDate(), 2), res[1].split(','));
     }
 });
 

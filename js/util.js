@@ -30,5 +30,13 @@
         }
     }
 
+    global.util.parseCTR = function (n) {
+        return (Math.round(parseFloat(n) * 10000) / 100);
+    }
+
+    global.util.getYesterday = function () {
+        return new Date(new Date().setDate(new Date().getDate() - 1));
+    }
+
 
 })(this);

@@ -36,6 +36,7 @@
     left: 20px;
     top: 10px;
     font-size: 60px;
+    font-family:tahoma,arial,宋体b8b\4f53,sans-serif;
     display: block;
     height: 60px;
     line-height: 50px;
@@ -263,7 +264,8 @@ ul.switcher li a {
 }
 
 .wr-detail-chart {
-    height: 350px;
+    height: 200px;
+    margin-bottom: 10px;
 }
 
 .wr-detail-consist table, .wr-detail-consist table td, .wr-detail-consist table th {
