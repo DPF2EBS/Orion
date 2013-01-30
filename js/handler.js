@@ -18,7 +18,7 @@ var DataProvider = {
                 url:DataProvider.config.url.tag,
                 type:'post',
                 dataType:'json',
-                database:DataProvider.config.db.dw59,
+                database:DataProvider.config.db.dw57,
                 data:{
                     url:DataProvider.getUrl(),
                     date:date,
@@ -32,7 +32,7 @@ var DataProvider = {
                 url:DataProvider.config.url.detail,
                 type:'post',
                 dataType:'json',
-                database:DataProvider.config.db.dw59,
+                database:DataProvider.config.db.dw57,
                 data:{
                     url:DataProvider.getUrl(),
                     date:date,

@@ -44,7 +44,7 @@ var detailUI = {
         </table>\
         </div>');
         data.forEach(function (d) {
-            $('<tr><td><a href="' + d.content_url + '">'+ d.content+'</a></td><td>' + d.clk_cnt + '</td><td>'+util.parseCTR(d.clk_cnt/sum)+'%</td></tr>').appendTo(container.find('tbody'));
+            $('<tr><td><a target="_blank" href="' + d.content_url + '">'+ d.content+'</a></td><td>' + d.clk_cnt + '</td><td>'+util.parseCTR(d.clk_cnt/sum)+'%</td></tr>').appendTo(container.find('tbody'));
         });
         return container;
     },
