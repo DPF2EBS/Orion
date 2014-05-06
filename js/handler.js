@@ -5,8 +5,7 @@ var DataProvider = {
             detail:'http://data.dp/windrunner/json/viewTagInfo'
         },
         db:{
-            dw57:'dw57',
-            dw59:'dw59'
+            dw63:'dw63'
         }
     },
     getUrl:function () {
@@ -20,7 +19,7 @@ var DataProvider = {
                 dataType:'json',
                 data:{
                     url:DataProvider.getUrl(),
-                    database:DataProvider.config.db.dw57,
+                    database:DataProvider.config.db.dw63,
                     date:date,
                     dateRange:0
                 },
@@ -34,7 +33,7 @@ var DataProvider = {
                 dataType:'json',
                 data:{
                     url:DataProvider.getUrl(),
-                    database:DataProvider.config.db.dw57,
+                    database:DataProvider.config.db.dw63,
                     date:date,
                     dateRange:range,
                     module:trackObj.module,
